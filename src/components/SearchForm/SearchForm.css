@@ -1,0 +1,126 @@
+.search-form__content {
+  padding: 80px 70px 50px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+}
+
+.search-form__container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 29px;
+}
+
+.search-form__input {
+  width: 100%;
+  height: 50px;
+  background-color: #2F2F2F;
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  border: none;
+}
+
+.search-form__input:focus {
+  border-bottom: 2px solid #4285F4;
+}
+
+.search-form__input::placeholder {
+  color: #8B8B8B;
+}
+
+.search-form__button {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 0 10px;
+  padding: 0;
+  display: flex;
+  border: none;
+  background: transparent url(../../images/search-button.svg) no-repeat center;
+  transition: opacity .3s linear;
+}
+
+.search-form__button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.search-form__toggle {
+  margin:  0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-form__paragraph {
+  margin: 0 0 0 12px;
+  padding-right: 14px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.search-form__checkbox-container {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.search-form__checkbox {
+  display: none;
+}
+
+.search-form__slider {
+  position: absolute;
+  inset: 0;
+  background-color: #3DDC84;
+  border-radius: 16px;
+  transition: .6s;
+  transform: scale(-1, -1);
+}
+
+.search-form__slider::before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 16px;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  border-radius: 50%;
+  background-color: #ffff;
+}
+
+@media all and (max-width: 767px) {
+  .search-form__content {
+    padding: 80px 30px 40px 30px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .search-form__content {
+    padding: 80px 14px 39px 14px;
+  }
+
+  .search-form__input {
+    font-size: 13px;
+  }
+
+  .search-form__toggle {
+    margin: 46px 0 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-form__paragraph {
+    font-size: 11px;
+    padding: 0;
+    margin: 0 0 0 13px;
+  }
+}

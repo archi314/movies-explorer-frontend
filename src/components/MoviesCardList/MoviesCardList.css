@@ -1,0 +1,72 @@
+.cards {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 70px 70px 0 70px;
+}
+
+.cards__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 24px;
+  grid-row-gap: 37px;
+  margin-bottom: 10px;
+}
+
+
+.cards__button-container {
+  width: 320px;
+  margin: 0 auto;
+  padding: 50px 0 80px 0;
+}
+
+.cards__button {
+  width: 320px;
+  padding: 10px;
+  outline: none;
+  background-color: #2F2F2F;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: center;
+  color: #FFFFFF;
+  transition: opacity .3s linear;
+}
+
+.cards__button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+.cards {
+  padding: 70px 30px 0 30px;
+}
+
+.cards__list {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 0;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .cards {
+    padding: 40px 10px 0 10px;
+  }
+
+  .cards__list {
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 14px;
+    margin-bottom: 26px;
+  }
+
+  .cards__button-container {
+    width: 240px;
+  }
+}

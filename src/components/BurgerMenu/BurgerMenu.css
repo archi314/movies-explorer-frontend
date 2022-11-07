@@ -1,0 +1,152 @@
+.burger-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.burger-menu__list {
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+  z-index: 1;
+  list-style: none;
+}
+
+.burger-menu__logo-container {
+  position: relative;
+  display: flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  border: 1px solid #000000;
+  background-color: #313131;
+}
+
+.burger-menu__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.burger-menu__profile-button {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  right: 0;
+  width: 100px;
+  height: 32px;
+  color: #ffff;
+  background-color: #202020;
+  font-size: 13px;
+  font-weight: medium;
+  z-index: 1;
+  border: none;
+  transition: opacity .3s linear;
+}
+
+.burger-menu__profile-button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.burger-menu__profile-link {
+  text-decoration: none;
+  color: #ffff;
+}
+
+.burger-menu__link {
+  text-decoration: none;
+  transition: opacity .3s linear;
+  color: #ffff;
+  margin-left: 16px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.burger-menu__link:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+
+@media all and (max-width: 767px) {
+
+  .burger-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background-color: #202020;
+    z-index: 1;
+    padding-top: 70px;
+    display: none;
+  }
+
+  .burger-menu__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 95px;
+  }
+
+  .burger-menu__list li {
+    list-style: none;
+    margin: 0 0 29px 0;
+  }
+
+  .burger-menu {
+    font-size: 18px;
+    padding-bottom: 5px;
+  }
+
+  .burger-menu__link:hover {
+    padding-bottom: 3px;
+    border-bottom: 2px solid #ffff;
+  }
+
+  .burger-menu_active {
+    display: block;
+  }
+
+  .burger-menu__list li:first-child {
+    display: block;
+  }
+
+  .burger-menu__profile-button {
+    position: fixed;
+    left: 55%;
+    bottom: 0;
+    margin-bottom: 98px;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .burger-menu {
+    width: 100%;
+    padding-top: 65px;
+  }
+
+  .burger-menu__list li {
+    list-style: none;
+    margin: 0 0 25px 0;
+  }
+
+  .burger-menu__list {
+    margin-left: 0;
+  }
+
+  .burger-menu__profile-button {
+    width: 100px;
+    height: 32px;
+    color: #202020;
+    position: fixed;
+    left: 35.5%;
+    bottom: 0;
+  }
+
+}
