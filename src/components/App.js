@@ -2,7 +2,7 @@ import '../../src/components/Page/Page.css';
 
 import React from "react";
 import { useState } from "react";
-import {Switch, Route, useLocation} from "react-router-dom";
+import {Switch, Route, useLocation, Redirect} from "react-router-dom";
 
 import Header from './Header/Header';
 import Main from "./Main/Main";
@@ -20,6 +20,7 @@ function App() {
   const [burgerItems, setBurgerItems] = useState(false);
   const openBurger = () => setBurgerItems(!burgerItems);
   const {pathname} = useLocation();
+  let loggedIn = false;
 
   return (
     <div className="page">
@@ -59,8 +60,11 @@ function App() {
           <Route path="/profile">
             <Profile/>
           </Route>
-          <Route path="/not-found">
+          <Route path="/page-not-found">
             <PageNotFound/>
+          </Route>
+          <Route exact path="*">
+            {loggedIn ? <Redirect to="/"/> : <Redirect to="/main-page"/>}
           </Route>
         </Switch>
       </div>

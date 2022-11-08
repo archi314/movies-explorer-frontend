@@ -12,14 +12,14 @@ function Header(props) {
           props.loggedIn ? "header__authorization_active" : ""
         }`}
       >
-        <Link to="/main-page" className="header__link">
-          <img
-            className="header__logo header__logo_signed-out"
-            src={headerLogo}
-            alt="логотип"
-          />
-        </Link>
         <div className="header__container">
+          <Link to="/main-page" className="header__link">
+            <img
+              className="header__logo header__logo_signed-out"
+              src={headerLogo}
+              alt="логотип"
+            />
+          </Link>
           <BurgerMenu
             burgerItems={props.burgerItems}
             onClick={props.openBurger}

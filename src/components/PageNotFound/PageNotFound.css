@@ -15,7 +15,7 @@
   line-height: 169px;
 }
 
-.not-found__text {
+.not-found__paragraph {
   margin-top: 5px;
   font-size: 16px;
   font-weight: 400;
@@ -62,7 +62,7 @@
       line-height: 97px;
   }
 
-  .not-found__text {
+  .not-found__paragraph {
       margin-top: 10px;
       font-size: 12px;
       line-height: 15px;

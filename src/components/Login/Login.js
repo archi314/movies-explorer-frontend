@@ -31,7 +31,7 @@ function Login() {
               <input
                 className="modal-window__input"
                 type="password"
-                placeholder="pochta@yandex.ru"
+                placeholder="password"
                 required
               />
             </label>
