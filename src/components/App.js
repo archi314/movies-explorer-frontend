@@ -2,7 +2,7 @@ import '../../src/components/Page/Page.css';
 
 import React from "react";
 import { useState } from "react";
-import {Switch, Route, useLocation, Redirect} from "react-router-dom";
+import {Switch, Route, useLocation} from "react-router-dom";
 
 import Header from './Header/Header';
 import Main from "./Main/Main";
@@ -20,51 +20,47 @@ function App() {
   const [burgerItems, setBurgerItems] = useState(false);
   const openBurger = () => setBurgerItems(!burgerItems);
   const {pathname} = useLocation();
-  let loggedIn = false;
 
   return (
     <div className="page">
       <div className="page__content">
         <Switch>
-          <Route path="/main-page">
+          <Route exact path="/">
             <Header
-              loggedIn={pathname === '/main-page' ? false : true}
+              loggedIn={pathname === '/' ? false : true}
             />
             <Main/>
             < Footer/>
           </Route>
-          <Route path="/movies">
+          <Route exact path="/movies">
             <Header
-              loggedIn={pathname === '/main-page' ? false : true}
+              loggedIn={pathname === '/' ? false : true}
               burgerItems={burgerItems}
               openBurger={openBurger}
             />
             <Movies/>
             <Footer/>
           </Route>
-          <Route path="/saved-movies">
+          <Route exact path="/saved-movies">
             <Header
-              loggedIn={pathname === '/main-page' ? false : true}
+              loggedIn={pathname === '/' ? false : true}
               burgerItems={burgerItems}
               openBurger={openBurger}
             />
               <SavedMovies/>
             <Footer/>
           </Route>
-          <Route path="/signin">
+          <Route exact path="/signin">
             <Login/>
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <Register/>
           </Route>
-          <Route path="/profile">
+          <Route exact path="/profile">
             <Profile/>
           </Route>
-          <Route path="/page-not-found">
+          <Route exact path="/page-not-found">
             <PageNotFound/>
-          </Route>
-          <Route exact path="*">
-            {loggedIn ? <Redirect to="/"/> : <Redirect to="/main-page"/>}
           </Route>
         </Switch>
       </div>

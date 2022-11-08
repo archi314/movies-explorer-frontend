@@ -7,7 +7,7 @@ function Register() {
   return (
     <section className="modal-window">
       <div className="modal-window__container">
-        <Link to="/main-page" className="modal-window__link">
+        <Link to="/" className="modal-window__link">
           <img
             className="modal-window__logo"
             src={headerLogo}

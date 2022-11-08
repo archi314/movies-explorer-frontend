@@ -8,7 +8,7 @@ function NavAuth(props) {
         props.loggedIn ? "" : "header__signed-out_active"
       }`}
     >
-      <Link to="/main-page" className="header__link">
+      <Link to="/" className="header__link">
         <img
           className="header__logo header__logo_signed-out"
           src={headerLogo}

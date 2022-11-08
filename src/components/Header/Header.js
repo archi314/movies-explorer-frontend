@@ -13,7 +13,7 @@ function Header(props) {
         }`}
       >
         <div className="header__container">
-          <Link to="/main-page" className="header__link">
+          <Link to="/" className="header__link">
             <img
               className="header__logo header__logo_signed-out"
               src={headerLogo}
