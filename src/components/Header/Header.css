@@ -1,5 +1,5 @@
 .header {
-  padding: 0 70px 0 70px;
+  /**padding: 0 70px 0 70px;*/
   background-color: #202020;
 }
 
@@ -27,6 +27,12 @@
   justify-content: space-between;
   align-items: center;
   display: none;
+}
+
+.header__authorization_active {
+  display: flex;
+  background-color: #202020;
+  padding: 0 70px 0 70px;
 }
 
 .header__profile-link {
@@ -63,10 +69,7 @@
   align-items: center;
   justify-content: flex-end;
   display: none;
-}
-
-.header__authorization_active {
-  display: flex;
+  padding: 0 70px 0 70px;
   background-color: #202020;
 }
 
@@ -80,6 +83,7 @@
   background-color: #3DDC84;
   font-size: 12px;
   line-height: 16px;
+  border: none;
   border-radius: 3px;
   margin-left: 30px;
   transition: opacity .3s linear;
@@ -98,9 +102,14 @@
 }
 
 @media all and (max-width: 767px) {
-  .header {
+  .header__signed-out {
     padding: 0 30px 0 30px;
     background-color: #073042;
+  }
+
+  .header__authorization_active {
+    padding: 0 30px 0 30px;
+    background-color: #202020;
   }
 
   .header__link {
@@ -189,9 +198,14 @@
 }
 
 @media all and (max-width: 450px) {
-  .header {
+  .header__signed-out {
     padding: 0 15px 0 15px;
     background-color: #073042;
+  }
+
+  .header__authorization_active {
+    padding: 0 15px 0 15px;
+    background-color: #202020;
   }
 
   .header__login-button {

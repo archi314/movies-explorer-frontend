@@ -26,7 +26,7 @@ function AboutProject() {
       </ul>
       <ul className="about-project__time">
         <li className="about-project__time-item about-project__time-item_green">
-          <h3 className="about-project__time-title">1 неделя</h3>
+          <h3 className="about-project__time-title about-project__time-title_black-color">1 неделя</h3>
         </li>
         <li className="about-project__time-item about-project__time-item_grey">
           <h3 className="about-project__time-title">4 недели</h3>

@@ -1,6 +1,7 @@
 .portfolio {
   margin: 0 auto;
   padding: 0 70px 125px;
+  background-color: #222222;
 }
 
 .portfolio__title {

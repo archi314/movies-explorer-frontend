@@ -1,9 +1,11 @@
 .modal-window {
-  padding: 70px 0 0 0;
   margin: 0 auto;
+  padding: 70px 0 0 0;
+  min-height: 780px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #222222;
 }
 
 .modal-window__container {
@@ -115,16 +117,17 @@
 
 @media all and (max-width: 767px) {
   .modal-window {
-    padding: 232px 0 0;
+    padding: 232px 30px 232px 30px;
   }
 }
 
 @media all and (max-width: 450px) {
   .modal-window {
-    padding: 56px 30px 0 30px;
+    padding: 56px 30px 232px 30px;
   }
 
   .modal-window__container {
+    width: 260px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,16 +138,24 @@
     font-size: 24px;
   }
 
+  .modal-window__input-list {
+    width: 260px;
+  }
+
   .modal-window__input-item {
     margin-bottom: 24px;
+  }
+
+  .modal-window__input {
+    max-width: 260px;
   }
 
   .modal-window__button {
     display: flex;
     margin: 0 auto;
     padding: 15px 67px 15px;
-    width: 260px;
-
+    max-width: 260px;
+    text-align: center;
     margin-top: 157px;
   }
 

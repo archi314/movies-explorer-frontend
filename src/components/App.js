@@ -29,7 +29,9 @@ function App() {
             <Header
               loggedIn={pathname === '/' ? false : true}
             />
-            <Main/>
+            <main>
+              <Main/>
+            </main>
             < Footer/>
           </Route>
           <Route exact path="/movies">
@@ -38,7 +40,9 @@ function App() {
               burgerItems={burgerItems}
               openBurger={openBurger}
             />
-            <Movies/>
+            <main>
+              <Movies/>
+            </main>
             <Footer/>
           </Route>
           <Route exact path="/saved-movies">
@@ -47,20 +51,30 @@ function App() {
               burgerItems={burgerItems}
               openBurger={openBurger}
             />
+            <main>
               <SavedMovies/>
+            </main>
             <Footer/>
           </Route>
           <Route exact path="/signin">
-            <Login/>
+            <main>
+              <Login/>
+            </main>
           </Route>
           <Route exact path="/signup">
-            <Register/>
+            <main>
+              <Register/>
+            </main>
           </Route>
           <Route exact path="/profile">
-            <Profile/>
+            <main>
+              <Profile/>
+            </main>
           </Route>
           <Route exact path="/page-not-found">
-            <PageNotFound/>
+              <main>
+                <PageNotFound/>
+              </main>
           </Route>
         </Switch>
       </div>
