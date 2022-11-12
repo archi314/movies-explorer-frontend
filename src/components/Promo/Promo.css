@@ -40,7 +40,7 @@
   height: 304px;
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 900px) {
   .promo {
     display: flex;
     padding: 140px 44px 0;

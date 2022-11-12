@@ -67,6 +67,11 @@ function App() {
             </main>
           </Route>
           <Route exact path="/profile">
+            <Header
+              loggedIn={pathname === '/' ? false : true}
+              burgerItems={burgerItems}
+              openBurger={openBurger}
+            />
             <main>
               <Profile/>
             </main>

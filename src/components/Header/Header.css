@@ -101,7 +101,7 @@
 
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 900px) {
   .header__signed-out {
     padding: 0 30px 0 30px;
     background-color: #073042;

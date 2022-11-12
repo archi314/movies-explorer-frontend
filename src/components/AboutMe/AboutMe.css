@@ -51,7 +51,6 @@
   max-height: 327px;
   width: 100%;
   border-radius: 10px;
-  margin-left: 270px;
   object-fit: cover;
 }
 
@@ -74,7 +73,7 @@
 
 @media screen and (max-width: 767px) {
   .about-me {
-      padding: 90px 50px 90px;
+      padding: 90px 50px 90px 50px;
   }
 
   .about-me__title {
@@ -97,7 +96,6 @@
   .about-me__avatar {
     max-width: 255px;
     max-height: 307px;
-    margin-left: 49px;
   }
 }
 

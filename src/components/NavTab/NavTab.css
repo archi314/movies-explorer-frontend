@@ -29,7 +29,7 @@
 }
 
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 900px) {
   .nav-tab__link {
     margin: 0 auto 76px auto;
   }

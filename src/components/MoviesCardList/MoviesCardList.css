@@ -12,13 +12,12 @@
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 24px;
   grid-row-gap: 37px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
   padding: 0;
 }
 
-
 .cards__button-container {
-  width: 320px;
+  max-width: 320px;
   margin: 0 auto;
   padding: 50px 0 80px 0;
 }
