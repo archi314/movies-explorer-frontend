@@ -9,7 +9,7 @@ function BurgerMenu(props) {
     >
       <ul className="burger-menu__list">
         <li>
-          <Link to="/" className="burger-menu__link burger-menu__link_invisible">
+          <Link to="/" className="burger-menu__link">
             Главная
           </Link>
         </li>

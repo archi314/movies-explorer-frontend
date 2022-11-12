@@ -6,19 +6,10 @@
 
 .burger-menu__list {
   position: relative;
-  margin-right: 364px;
   padding: 0;
   display: none;
   list-style: none;
 }
-
-.navigation-menu__list {
-  position: relative;
-  padding: 0;
-  display: flex;
-  list-style: none;
-}
-
 
 .burger-menu__profile-link {
   text-decoration: none;
@@ -30,8 +21,6 @@
   text-decoration: none;
   transition: opacity .3s linear;
   color: #ffff;
-  margin-right: 16px;
-  gap: 16px;
   font-size: 13px;
   font-weight: 400;
   line-height: 18px;
@@ -40,10 +29,6 @@
 .burger-menu__link:hover {
   opacity: .6;
   cursor: pointer;
-}
-
-.burger-menu__link_invisible {
-  display: none;
 }
 
 .burger-menu__logo-container {
@@ -108,10 +93,6 @@
     margin: 0;
   }
 
-  .navigation-menu__list {
-    display: none;
-  }
-
   .burger-menu__link {
     margin-right: 0;
   }
@@ -151,10 +132,6 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
-  }
-
-  .navigation-menu__list{
-    display: none;
   }
 
   .burger-menu__link {
