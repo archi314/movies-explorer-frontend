@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import headerLogo from "../../images/header_logo.svg";
 import NavAuth from "../NavAuth/NavAuth";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import NavigationMenu from "../NavigationMenu/NavigationMenu";
 
 function Header(props) {
   return (
@@ -20,6 +21,7 @@ function Header(props) {
               alt="логотип"
             />
           </Link>
+          <NavigationMenu/>
           <BurgerMenu
             burgerItems={props.burgerItems}
             onClick={props.openBurger}

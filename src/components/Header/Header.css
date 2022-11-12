@@ -1,5 +1,4 @@
 .header {
-  /**padding: 0 70px 0 70px;*/
   background-color: #202020;
 }
 
@@ -146,6 +145,7 @@
     width: 22px;
     height: 20px;
     z-index: 1;
+    cursor: pointer;
     border: none;
     background-color: transparent;
   }
