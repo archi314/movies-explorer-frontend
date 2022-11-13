@@ -6,13 +6,11 @@ function MoviesCard({ movie }) {
 
   return (
     <li className="card">
-      <div className="">
-        <img
+      <img
           className="card__image"
           src={`${movie.image}`}
           alt={movie.title}
-        ></img>
-      </div>
+      ></img>
       <div className="card__content">
         <div className="card__paragraph-container">
           <h3 className="card__title">{movie.title}</h3>

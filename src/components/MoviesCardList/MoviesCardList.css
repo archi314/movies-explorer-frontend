@@ -12,7 +12,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 24px;
   grid-row-gap: 37px;
-  margin: 0 0 10px 0;
+  margin: 0 auto 10px auto;
   padding: 0;
 }
 
@@ -66,7 +66,7 @@
     grid-template-columns: 1fr;
     grid-column-gap: 0;
     grid-row-gap: 14px;
-    margin-bottom: 26px;
+    margin: 0 auto 26px auto;
   }
 
   .cards__button-container {

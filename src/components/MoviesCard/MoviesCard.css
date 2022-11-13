@@ -1,6 +1,8 @@
 .card {
+  max-width: 364px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   background-color: #222222;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   transition: opacity .3s linear;
@@ -13,8 +15,9 @@
 
 .card__image {
   width: 100%;
-  max-height: 203px;
-  object-fit: contain;
+  max-width: 364px;
+  height: 203px;
+  object-fit: cover;
 }
 
 .card__content {
@@ -31,7 +34,7 @@
 
 .card__title {
   margin: 0 0 17px 0;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 18px;
 }
@@ -67,8 +70,8 @@
   width: 30px;
   height: 30px;
   position: relative;
-  top: 15px;
-  left: 15px;
+  top: 18px;
+  left: 12px;
   padding: 0;
   border: none;
   transition: opacity .3s linear;
@@ -83,20 +86,60 @@
 
 @media all and (max-width: 767px) {
   .card {
-      height: 262px;
+    max-width: 339px;
+    min-height: 262px;
   }
 
   .card__image {
-      max-height: 190px;
+    max-width: 339px;
+    height: 190px;
+  }
+
+ .card__content {
+  padding: 0 14px 0 14px;
+}
+
+.card__paragraph-container {
+  margin: 14px 0 14px 0;
+  max-width: 260px;
+}
+
+  .card__title {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+  }
+
+  .card__duration {
+    font-size: 11px;
   }
 }
 
 @media screen and (max-width: 540px) {
- .card {
-     height: 237px;
+  .card {
+    max-width: 300px;
+    min-height: 237px;
  }
 
+ .card__content {
+  padding: 0 14px 0 14px;
+}
+
+.card__paragraph-container {
+  margin: 14px 0 14px 0;
+  max-width: 300px;
+}
+
   .card__image {
-      max-height: 168px;
+    max-width: 300px;
+    max-height: 168px;
+  }
+
+  .card__title {
+    margin: 0 0 14px 0;
+    font-size: 12px;
+  }
+
+  .card__duration {
+    font-size: 10px;
   }
 }
