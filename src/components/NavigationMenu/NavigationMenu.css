@@ -4,6 +4,7 @@
   align-items: center;
   position: relative;
   padding: 0;
+  gap: 16px;
   display: flex;
   list-style: none;
 }
@@ -13,7 +14,6 @@
   text-decoration: none;
   transition: opacity .3s linear;
   color: #ffff;
-  margin-right: 16px;
   gap: 16px;
   font-size: 13px;
   font-weight: 400;

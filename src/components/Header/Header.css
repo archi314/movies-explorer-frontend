@@ -8,6 +8,7 @@
 
 .header__logo {
   margin: 18px 0 18px 0;
+  cursor: pointer;
 }
 
 .header__container {
@@ -36,6 +37,7 @@
 
 .header__profile-link {
   color: #ffff;
+  cursor: pointer;
   text-decoration: none;
   transition: opacity .3s linear;
 }
@@ -51,11 +53,12 @@
 
 .header__link {
   text-decoration: none;
-  transition: opacity .2s linear;
-  color: white;
+  cursor: pointer;
+  color: #ffff;
   font-size: 13px;
   font-weight: 400;
   line-height: 18px;
+  transition: opacity .3s linear;
 }
 
 .header__link:hover {
