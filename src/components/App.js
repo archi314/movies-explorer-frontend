@@ -98,85 +98,83 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <div className="page__content">
-          <Switch>
-            <Route exact path="/">
-              <Header
-                loggedIn={loggedIn}
+    <div className="page">
+      <div className="page__content">
+        <Switch>
+          <Route exact path="/">
+            <Header
+              loggedIn={loggedIn}
+            />
+            <main>
+              <Main/>
+            </main>
+            < Footer/>
+          </Route>
+          <Route exact path="/signin">
+            <main>
+              <Login
+                onLogin={handleLogin}
               />
-              <main>
-                <Main
+            </main>
+          </Route>
+          <Route exact path="/signup">
+            <main>
+              <Register
+                onRegister={handleRegister}
+              />
+            </main>
+          </Route>
+          <Route exact path="*">
+            <main>
+              <PageNotFound/>
+            </main>
+          </Route>
+        </Switch>
+          {(!['/movies', '/saved-movies', '/profile'].includes(pathname) || loggedIn) ?
+        <Switch>
+          <Route exact path="/movies">
+            <Header
+              loggedIn={loggedIn}
+              burgerItems={burgerItems}
+              openBurger={openBurger}
+            />
+            <main>
+              <Movies
+                onlyFavouriteMovies={false}
+              />
+            </main>
+            <Footer/>
+          </Route>
+          <Route exact path="/saved-movies">
+            <Header
+              loggedIn={loggedIn}
+              burgerItems={burgerItems}
+              openBurger={openBurger}
+            />
+            <main>
+              <Movies
+                onlyFavouriteMovies={true}
+              />
+            </main>
+            <Footer/>
+          </Route>
+          <Route exact path="/profile">
+            <Header
+              loggedIn={loggedIn}
+              burgerItems={burgerItems}
+              openBurger={openBurger}
+            />
+            <main>
+              <Profile
+                onUpdateProfileData={updateProfile}
+                onProfileExit={signOut}
+              />
+            </main>
+          </Route>
+        </Switch> : <Redirect to="/"/>}
 
-                />
-              </main>
-              < Footer/>
-            </Route>
-            <Route exact path="/signin">
-              <main>
-                <Login
-                  onLogin={handleLogin}
-                />
-              </main>
-            </Route>
-            <Route exact path="/signup">
-              <main>
-                <Register
-                  onRegister={handleRegister}
-                />
-              </main>
-            </Route>
-            <Route exact path="/page-not-found">
-                <main>
-                  <PageNotFound/>
-                </main>
-            </Route>
-          </Switch>
-            {pathname.length > 1 && loggedIn ?
-          <Switch>
-            <Route exact path="/movies">
-              <Header
-                loggedIn={loggedIn}
-                burgerItems={burgerItems}
-                openBurger={openBurger}
-              />
-              <main>
-                <Movies
-                  onlyFavouriteMovies={false}
-                />
-              </main>
-              <Footer/>
-            </Route>
-            <Route exact path="/saved-movies">
-              <Header
-                loggedIn={loggedIn}
-                burgerItems={burgerItems}
-                openBurger={openBurger}
-              />
-              <main>
-                <Movies
-                  onlyFavouriteMovies={true}
-                />
-              </main>
-              <Footer/>
-            </Route>
-            <Route exact path="/profile">
-              <Header
-                loggedIn={loggedIn}
-                burgerItems={burgerItems}
-                openBurger={openBurger}
-              />
-              <main>
-                <Profile
-                  onUpdateProfileData={updateProfile}
-                  onProfileExit={signOut}
-                />
-              </main>
-            </Route>
-          </Switch> : <Redirect to="/"/>}
-
-        </div>
       </div>
+    </div>
     </CurrentUserContext.Provider>
     );
 }
