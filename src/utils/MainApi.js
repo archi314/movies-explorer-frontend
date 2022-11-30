@@ -12,10 +12,6 @@ class MainApi {
       return Promise.reject(`${json.message || `Произошла ошибка: ${result.statusText}`}`);
   }
 
-  setToken(token) {
-    //this._headers.Authorization = token;
-  }
-
   register(name, email, password) {
       return fetch(`${this._baseUrl}/signup`, {
           method: 'POST',
@@ -105,7 +101,6 @@ const mainApi = new MainApi({
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     "Access-Control-Allow-Credentials": true,
-    //'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
   },
 });
 
