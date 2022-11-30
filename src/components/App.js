@@ -27,6 +27,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
+  const protectedPages = ['/movies', '/saved-movies', '/profile'];
 
   useEffect(() => {
     if (loggedIn || localStorage.jwt) {
@@ -124,13 +125,14 @@ function App() {
               />
             </main>
           </Route>
+          {(!protectedPages.includes(pathname)) ?
           <Route exact path="*">
             <main>
               <PageNotFound/>
             </main>
-          </Route>
+          </Route> : null}
         </Switch>
-          {(!['/movies', '/saved-movies', '/profile'].includes(pathname) || loggedIn) ?
+          {(!protectedPages.includes(pathname) || loggedIn) ?
         <Switch>
           <Route exact path="/movies">
             <Header
