@@ -67,6 +67,8 @@ function App() {
       .login(email, password)
       .then((res) => {
         setLoggedIn(true);
+        localStorage.jwt = res.token;
+        MainApi.setToken(res.token);
         history.push("/movies");
       })
       .catch((err) => {
@@ -79,6 +81,7 @@ function App() {
     return MainApi.signout()
     .then((res) => {
       setLoggedIn(false);
+      localStorage.removeItem('jwt');
       history.push("/signin");
     })
     .catch((err) =>  {
