@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
@@ -8,6 +8,7 @@ import MainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 
 import useWindowResize from "../../utils/useWindowResize";
+import {littleSizeScreen, mediumSizeScreen} from "../../utils/constants";
 
 function Movies ({onlyFavouriteMovies}) {
   const [isReady, setReady] = useState(false);
@@ -15,98 +16,179 @@ function Movies ({onlyFavouriteMovies}) {
   const [windowWidth] = useWindowResize([0]);
 
   const [movies, setMovies] = useState([]);
-  const [favouritesCount, setFavouritesCount] = useState(0);
-  const [moviesOnePage, setMoviesOnePage] = useState(12);
-  const [moviesPerPage, setMoviesPerPage] = useState(moviesOnePage);
-  const [searchString, setSearchString] = useState('');
+  const [moviesFirstPage, setMoviesFirstPage] = useState(12);
+  const [moviesNextPage, setMoviesNextPage] = useState(3);
+  const [moviesPerPage, setMoviesPerPage] = useState(moviesFirstPage);
+  const [searchString, setSearchString] = useState(typeof localStorage.searchString === 'undefined' ? '' : localStorage.searchString);
+  const [onlyShortMovies, setOnlyShortMovies] = useState(localStorage.onlyShortMovies === 'true');
+  const [searchStringFavourites, setSearchStringFavourites] = useState('');
+  const [onlyShortMoviesFavourites, setOnlyShortMoviesFavourites] = useState(false);
   const [hideShowMore, setHideShowMore] = useState(false);
-  const [onlyShortMovies, setOnlyShortMovies] = useState(false);
+
+  const searchStringFinal = onlyFavouriteMovies ? searchStringFavourites : searchString;
+  const onlyShortMoviesFinal = onlyFavouriteMovies ? onlyShortMoviesFavourites : onlyShortMovies;
 
   const handleShowMoreMovies = () => {
-    setMoviesPerPage(moviesPerPage + moviesOnePage);
+    setMoviesPerPage(moviesPerPage + moviesNextPage);
   }
 
   const handleChangeSearchString = (e) => {
     e.preventDefault();
-    setSearchString(e.target.querySelector(".search-form__input").value.toLowerCase());
+    const inputString = e.target.querySelector(".search-form__input").value.toLowerCase();
+    if (onlyFavouriteMovies) {
+      setSearchStringFavourites(inputString);
+      return false;
+    }
+    localStorage.searchString = inputString;
+    localStorage.removeItem('resultMovies');
+    setSearchString(inputString);
     return false;
   }
 
   const handleMoviesShort = (e) => {
-    setOnlyShortMovies(e.target.checked);
+    const shortMovies = e.target.checked;
+    if (onlyFavouriteMovies) {
+      setOnlyShortMoviesFavourites(shortMovies);
+      return;
+    }
+    localStorage.onlyShortMovies = shortMovies;
+    localStorage.removeItem('resultMovies');
+    setOnlyShortMovies(shortMovies);
   }
 
-  const changeFavouritesCount = (changeCount) => {
-    setFavouritesCount(favouritesCount + changeCount);
+  const changeFavourites = (movieId, favourite) => {
+    function updateFavourites(moviesArray) {
+      return moviesArray.map(movie => {
+        if (movie.id === movieId) {
+          movie.favourite = favourite;
+        }
+        return movie;
+      });
+    }
+    setMovies(updateFavourites(movies));
+    if (localStorage.resultMovies) {
+      try {
+        const moviesFilter = JSON.parse(localStorage.resultMovies);
+        if (typeof moviesFilter === 'object' && moviesFilter.constructor.name === 'Array' && moviesFilter.length) {
+          localStorage.resultMovies = JSON.stringify(updateFavourites(moviesFilter));
+        }
+      } catch (e) {
+        console.log("Ошибка восстановления результатов запроса: " + e);
+      }
+    }
   }
 
   useEffect(() => {
-    if (windowWidth > 768) {
-      setMoviesOnePage(12);
-    } else if (windowWidth > 480) {
-      setMoviesOnePage(8);
-    } else {
-      setMoviesOnePage(5);
+    if (onlyFavouriteMovies) {
+      setSearchStringFavourites('');
+      setOnlyShortMoviesFavourites(false);
     }
-    setMoviesPerPage(moviesOnePage);
-  }, [windowWidth, moviesOnePage]);
+  }, [onlyFavouriteMovies]);
 
-  const moviesToRender = React.useMemo(function () {
-    let moviesFilter = movies.filter((movie) => {
-      return movie.nameEN.toLowerCase().includes(searchString) || movie.nameRU.toLowerCase().includes(searchString)
-    })
-    if (onlyFavouriteMovies){
-      moviesFilter=moviesFilter.filter((movie) => {
-        return movie.favourite === true;
-      })
+  useEffect(() => {
+    if (windowWidth > mediumSizeScreen) {
+      setMoviesFirstPage(12);
+      setMoviesNextPage(3);
+    } else if (windowWidth > littleSizeScreen) {
+      setMoviesFirstPage(8);
+      setMoviesNextPage(2);
+    } else {
+      setMoviesFirstPage(5);
+      setMoviesNextPage(2);
     }
-    if (onlyShortMovies){
-      moviesFilter=moviesFilter.filter((movie) => {
-        return movie.duration<=40
-      })
+    setMoviesPerPage(moviesFirstPage);
+  }, [windowWidth, moviesFirstPage]);
+
+  const moviesToRender = useMemo(function () {
+    let moviesFilter = [];
+    if (onlyFavouriteMovies){
+      moviesFilter = movies.filter((movie) => {
+        return movie.favourite === true;
+      });
+    } else if (localStorage.resultMovies) {
+      try {
+        moviesFilter = JSON.parse(localStorage.resultMovies);
+      } catch (e) {
+        console.log("Ошибка восстановления результатов запроса: " + e);
+      }
+    }
+    if (!onlyFavouriteMovies && (typeof moviesFilter !== 'object' || moviesFilter.constructor.name !== 'Array' || moviesFilter.length === 0)) {
+      localStorage.removeItem('resultMovies');
+      moviesFilter = movies;
+    }
+    if (onlyFavouriteMovies || !localStorage.resultMovies) {
+      moviesFilter = moviesFilter.filter((movie) => {
+        return movie.nameEN.toLowerCase().includes(searchStringFinal) || movie.nameRU.toLowerCase().includes(searchStringFinal)
+      });
+      if (onlyShortMoviesFinal){
+        moviesFilter = moviesFilter.filter((movie) => {
+          return movie.duration <= 40
+        });
+      }
+      if (!onlyFavouriteMovies) {
+        localStorage.resultMovies = moviesFilter.length ? JSON.stringify(moviesFilter) : '';
+      }
     }
     setHideShowMore(moviesFilter.length===0 || moviesFilter.length<=moviesPerPage);
     return moviesFilter.slice(0, moviesPerPage);
-  }, [moviesPerPage, movies, searchString, onlyShortMovies, onlyFavouriteMovies]);
+  }, [moviesPerPage, movies, searchStringFinal, onlyShortMoviesFinal, onlyFavouriteMovies]);
 
 
   useEffect(() => {
     if (!isReady) {
+      if (!onlyFavouriteMovies && localStorage.resultMovies) {
+        setReady(true);
+        return;
+      }
       setLoading(true);
     }
-    let handler = favourites => {
-      MoviesApi.getMovies()
-        .then(data => {
-        data = data.map(movie => {
-          movie.favourite = favourites.findIndex(favourite => {return movie.id === favourite.movieId}) > -1;
-          return movie;
-        });
-        setMovies(data);
-        setFavouritesCount(favourites.length);
-        if (!isReady) {
-          setLoading(false);
+    let handler = async favourites => {
+      let data = [];
+      if (localStorage.allMovies) {
+        try {
+          data = JSON.parse(localStorage.allMovies);
+        } catch (e) {
+          console.log(e);
         }
-        setReady(true);
-      })
+      }
+      if (typeof data !== 'object' || data.constructor.name !== 'Array' || data.length === 0) {
+        localStorage.removeItem('allMovies');
+        data = await MoviesApi.getMovies();
+        localStorage.allMovies = data.length ? JSON.stringify(data) : '';
+      }
+      data = data.map(movie => {
+        movie.favourite = favourites.findIndex(favourite => {return movie.id === favourite.movieId}) > -1;
+        return movie;
+      });
+      setMovies(data);
+      if (!isReady) {
+        setLoading(false);
+      }
+      setReady(true);
     }
-    MainApi.getMovies().then(handler).catch(() => {
-      handler([]);
-    });
-  }, [isReady, favouritesCount])
+    if (!movies.length) {
+      MainApi.getMovies().then(handler).catch(() => {
+        handler([]);
+      });
+    }
+  }, [isReady, onlyFavouriteMovies, movies.length]);
 
 
     return (
         <section>
             <SearchForm
+              searchString={searchStringFinal}
+              onlyShortMovies={onlyShortMoviesFinal}
               handleChangeSearchString={handleChangeSearchString}
               handleMoviesShort={handleMoviesShort}
+              onlyFavouriteMovies={onlyFavouriteMovies}
             />
             {isLoading ? <Preloader /> : <MoviesCardList
               movies={moviesToRender}
               handleShowMoreMovies={handleShowMoreMovies}
               hideShowMore={hideShowMore}
               onlyFavouriteMovies={onlyFavouriteMovies}
-              changeFavouritesCount={changeFavouritesCount}
+              changeFavourites={changeFavourites}
             />}
         </section>
     );

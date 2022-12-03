@@ -97,10 +97,13 @@
 }
 
 .profile__button:hover {
-  opacity: .6;
-  cursor: pointer;
+  opacity: .5;
 }
 
+.profile__button_disabled {
+  opacity: .5;
+  cursor: default;
+}
 
 .profile__link {
   border: none;

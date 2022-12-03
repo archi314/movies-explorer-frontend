@@ -11,6 +11,7 @@ function Login({onLogin}) {
 
   const { values, handleChange, errors, isValid } = useFormValidation();
   const [submitError, setSubmitError] = useState('');
+  const [isSubmitLocked, setSubmitLocked] = useState(false);
 
   const handleInputValue = (e) => {
     handleChange(e);
@@ -19,7 +20,11 @@ function Login({onLogin}) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    onLogin(values.email, values.password, setSubmitError);
+    setSubmitLocked(true);
+    onLogin(values.email, values.password, error => {
+      setSubmitError(error);
+      setSubmitLocked(false);
+    });
   }
 
   return (
@@ -43,6 +48,7 @@ function Login({onLogin}) {
                 placeholder="pochta@yandex.ru"
                 name="email"
                 value={values.email || ""}
+                pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
                 required
                 onChange={handleInputValue}
               />
@@ -62,7 +68,7 @@ function Login({onLogin}) {
               <span className="modal-window__span modal-window__span_error">{errors.password || submitError}</span>
             </label>
           </div>
-          <button className={`modal-window__button ${isValid ? "" : "modal-window__button_disabled"}`} type="submit" disabled={!isValid ? true : ''}>
+          <button className={`modal-window__button ${isSubmitLocked || !isValid ? "modal-window__button_disabled" : ""}`} type="submit" disabled={isSubmitLocked || !isValid ? true : ''}>
             Войти
           </button>
           <p className="modal-window__paragraph">

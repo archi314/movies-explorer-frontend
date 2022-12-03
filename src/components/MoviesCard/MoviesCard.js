@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import "./MoviesCard.css";
 import MainApi from "../../utils/MainApi";
 
-function MoviesCard({ movie, name, duration, link, saved, changeFavouritesCount }) {
+function MoviesCard({ movie, name, duration, link, saved, changeFavourites }) {
 
   const [isFavourite, setFavourite] = useState(movie.favourite);
 
@@ -18,7 +18,7 @@ function MoviesCard({ movie, name, duration, link, saved, changeFavouritesCount 
     if (saved || isFavourite) {
       MainApi.deleteMovie(movie.id).then(res => {
         setFavourite(false);
-        changeFavouritesCount(-1);
+        changeFavourites(movie.id, false);
       });
     } else {
       MainApi.addMovie({
@@ -35,7 +35,7 @@ function MoviesCard({ movie, name, duration, link, saved, changeFavouritesCount 
         thumbnail: link
       }).then(res => {
         setFavourite(true);
-        changeFavouritesCount(1);
+        changeFavourites(movie.id, true);
       });
     }
   }

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({movies, handleShowMoreMovies, hideShowMore, onlyFavouriteMovies, changeFavouritesCount}) {
+function MoviesCardList({movies, handleShowMoreMovies, hideShowMore, onlyFavouriteMovies, changeFavourites}) {
   return (
     <section className="cards">
 
@@ -16,7 +16,7 @@ function MoviesCardList({movies, handleShowMoreMovies, hideShowMore, onlyFavouri
             link={`https://api.nomoreparties.co${movie.image.url}`}
             duration={movie.duration}
             saved={onlyFavouriteMovies}
-            changeFavouritesCount={changeFavouritesCount}
+            changeFavourites={changeFavourites}
           />
         ))}
       </ul>: <p className='cards__not-found'>Ничего не найдено</p>}

@@ -100,7 +100,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://artemst.nomoredomains.icu/api',
+  baseUrl: 'https://artemst.nomoredomains.icu/api', // 'http://localhost:4000/api'
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

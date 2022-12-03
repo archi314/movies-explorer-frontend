@@ -11,6 +11,7 @@ function Register({onRegister}) {
 
   const { values, handleChange, errors, isValid } = useFormValidation();
   const [submitError, setSubmitError] = useState('');
+  const [isSubmitLocked, setSubmitLocked] = useState(false);
 
   const handleInputValue = (e) => {
     handleChange(e);
@@ -19,7 +20,11 @@ function Register({onRegister}) {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    onRegister(values.name, values.email, values.password, setSubmitError);
+    setSubmitLocked(true);
+    onRegister(values.name, values.email, values.password,  error => {
+      setSubmitError(error);
+      setSubmitLocked(false);
+    });
   }
 
   return (
@@ -45,6 +50,7 @@ function Register({onRegister}) {
                 onChange={handleInputValue}
                 minLength="2"
                 maxLength="30"
+                pattern="^[A-Za-zА-Яа-я-\s]+$"
                 placeholder="Виталий"
                 required
               />
@@ -59,6 +65,7 @@ function Register({onRegister}) {
                 value={values.email || ""}
                 onChange={handleInputValue}
                 placeholder="pochta@yandex.ru"
+                pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
                 required
               />
               <span className="modal-window__span modal-window__span_error">{errors.email}</span>
@@ -77,7 +84,7 @@ function Register({onRegister}) {
               <span className="modal-window__span modal-window__span_error">{errors.password || submitError}</span>
             </li>
           </ul>
-          <button className={`modal-window__button ${isValid ? "" : "modal-window__button_disabled"}`} type="submit" disabled={!isValid ? true : ''}>
+          <button className={`modal-window__button ${isSubmitLocked || !isValid ? "modal-window__button_disabled" : ""}`} type="submit" disabled={isSubmitLocked || !isValid ? true : ''}>
             Зарегистрироваться
           </button>
           <p className="modal-window__paragraph">

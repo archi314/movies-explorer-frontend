@@ -15,9 +15,6 @@ function useFormValidation() {
     setErrors({...errors, [name]: target.validationMessage });
 
     if (name === "name") {
-      if(value.length < 2 || value.length > 30 ) {
-        setErrors({...errors, [name]: "Поле должно быть не менее 2 или не более 30 символов"});
-      }
       if(value.length === 0) {
         setErrors({...errors, [name]: "Пожалуйста заполните это поле"});
       }

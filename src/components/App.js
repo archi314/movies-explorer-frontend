@@ -24,24 +24,40 @@ function App() {
   const openBurger = () => setBurgerItems(!burgerItems);
   const {pathname} = useLocation();
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('jwt') ? true : false);
   const history = useHistory();
 
-  const protectedPages = ['/movies', '/saved-movies', '/profile'];
+  const protectedLoginPages = ['/movies', '/saved-movies', '/profile'];
+  const protectedGuestPages = ['/signin', '/signup'];
 
   useEffect(() => {
-    if (loggedIn || localStorage.jwt) {
-      MainApi
-        .getUserInfo()
-        .then((userData) => {
-          setLoggedIn(true);
-          setCurrentUser(userData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    function signOut() {
+      MainApi.signout().then(() => {
+        setLoggedIn(false);
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('allMovies');
+        localStorage.removeItem('resultMovies');
+        localStorage.removeItem('searchString');
+        localStorage.removeItem('onlyShortMovies');
+      }).catch((err) =>  {
+        console.log(err);
+      });
     }
-  }, [loggedIn, history]);
+    if (!localStorage.jwt) {
+      signOut();
+      return;
+    }
+    MainApi
+      .getUserInfo()
+      .then((userData) => {
+        setLoggedIn(true);
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        signOut();
+        console.log(err);
+      });
+  }, [loggedIn, pathname]);
 
   /** Регистрация нового пользователя */
 
@@ -49,9 +65,7 @@ function App() {
     return MainApi
       .register(name, email, password)
       .then((res) => {
-        if (res) {
-          history.push("/signin");
-        }
+        handleLogin(email, password);
       })
       .catch((err) => {
         console.log(err);
@@ -82,6 +96,10 @@ function App() {
     .then((res) => {
       setLoggedIn(false);
       localStorage.removeItem('jwt');
+      localStorage.removeItem('allMovies');
+      localStorage.removeItem('resultMovies');
+      localStorage.removeItem('searchString');
+      localStorage.removeItem('onlyShortMovies');
       history.push("/signin");
     })
     .catch((err) =>  {
@@ -90,9 +108,10 @@ function App() {
     });
   };
 
-  function updateProfile(data, onError = () => {}) {
+  function updateProfile(data, onSuccess = () => {}, onError = () => {}) {
     MainApi.sendUserInfo(data).then(user => {
       setCurrentUser(user);
+      onSuccess();
     })
     .catch((err) =>  {
       console.log(err);
@@ -114,6 +133,15 @@ function App() {
             </main>
             < Footer/>
           </Route>
+          {!(protectedLoginPages.includes(pathname) || protectedGuestPages.includes(pathname)) ?
+          <Route exact path="*">
+            <main>
+              <PageNotFound/>
+            </main>
+          </Route> : null}
+        </Switch>
+        {(protectedGuestPages.includes(pathname) && loggedIn) ? <Redirect to="/"/> :
+        <Switch>
           <Route exact path="/signin">
             <main>
               <Login
@@ -128,14 +156,8 @@ function App() {
               />
             </main>
           </Route>
-          {(!protectedPages.includes(pathname)) ?
-          <Route exact path="*">
-            <main>
-              <PageNotFound/>
-            </main>
-          </Route> : null}
-        </Switch>
-          {(!protectedPages.includes(pathname) || loggedIn) ?
+        </Switch>}
+          {(!protectedLoginPages.includes(pathname) || loggedIn) ?
         <Switch>
           <Route exact path="/movies">
             <Header
