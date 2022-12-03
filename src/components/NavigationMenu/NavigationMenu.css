@@ -18,11 +18,16 @@
   font-size: 13px;
   font-weight: 400;
   line-height: 18px;
+  opacity: .8;
 }
 
 .navigation-menu__link:hover {
   opacity: .6;
   cursor: pointer;
+}
+
+.navigation-menu__link.active {
+  opacity: 1;
 }
 
 .navigation-menu__link_invisible {
