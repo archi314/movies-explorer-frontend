@@ -1,5 +1,5 @@
 import "./BurgerMenu.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import moviesAccount from "../../images/icon_account.svg";
 
 function BurgerMenu(props) {
@@ -9,19 +9,19 @@ function BurgerMenu(props) {
     >
       <ul className="burger-menu__list">
         <li>
-          <Link to="/" className="burger-menu__link">
+          <NavLink to="/" className="burger-menu__link">
             Главная
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/movies" className="burger-menu__link">
+          <NavLink to="/movies" className="burger-menu__link">
             Фильмы
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/saved-movies" className="burger-menu__link">
+          <NavLink to="/saved-movies" className="burger-menu__link">
             Сохранённые фильмы
-          </Link>
+          </NavLink>
         </li>
       </ul>
       <button

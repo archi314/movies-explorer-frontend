@@ -52,18 +52,19 @@
   height: 30px;
   padding: 0;
   border: none;
+  position: relative;
+  top: 9px;
   transition: opacity .3s linear;
+  cursor: pointer;
 }
 
 .card__heart-button_active {
-  position: relative;
-  top: 9px;
   background: transparent url(../../images/heart_icon.svg) no-repeat center;
 }
 
 .card__heart-button_inactive {
-  border: none;
-  background: #424242 url(../../images/heart_icon_disabled.svg) no-repeat center;
+  background: transparent url(../../images/heart_icon_disabled.svg) no-repeat center;
+  opacity: .3;
 }
 
 .card__button_remove-icon {
@@ -81,10 +82,9 @@
 
 .card__button:hover {
   opacity: .6;
-  cursor: pointer;
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .card {
     max-width: 339px;
     min-height: 262px;
